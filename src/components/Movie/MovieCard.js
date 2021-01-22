@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useContext} from 'react';
 import PropTypes from 'prop-types';
+import { MovieContext } from './Movies';
 
 import StarRating from '../StarRating';
 
-const MovieCard = ({ movie }) => (
+const MovieCard = ({ movie }) => {
+  const handleRemove = useContext(MovieContext);
+  
+  return (
   <div className="movie-card">
     <div className="movie-card card">
       <img className="card-img-top" src={movie.imageUrl} alt="" />
@@ -22,9 +26,12 @@ const MovieCard = ({ movie }) => (
           <div className="card-footer-badge float-right badge badge-primary badge-pill">{movie.rating}</div>
         </div>
       </div>
+      { movie.removeAble &&
+        <button type="button" onClick={() => handleRemove(movie.id)}>remove</button>
+      }
     </div>
   </div>
-);
+);}
 
 MovieCard.defaultProps = {
   movie: {},

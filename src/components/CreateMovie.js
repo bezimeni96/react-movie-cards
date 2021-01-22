@@ -32,7 +32,6 @@ const CreateMovie = ({ addMovie }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (formControl()) {
-      console.log('proslo');
       addMovie({
         ...movie,
         year: parseInt(movie.year),

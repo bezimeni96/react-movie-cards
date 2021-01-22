@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 
 import MovieList from './MovieList';
 import MovieService from '../../services/MovieService';
 import CreateMovie from '../CreateMovie';
 
+export const MovieContext = React.createContext();
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
-  // const [newMovies, setNewMovies] = useState([]);
+  // const action = useContext(MovieContext);
   
   const addMovie = (movie) => {
     const newMovies = [...movies];
@@ -16,8 +17,13 @@ const Movies = () => {
       id: new Date().getTime().toString(),
       removeAble: true
     })
-    console.log({newMovies})
     setMovies(newMovies);
+  }
+
+  const handleRemove = (id) => {
+    setMovies((movies) => {
+      return movies.filter((movie) => movie.id !== id);
+    });
   }
 
   useEffect(() => {
@@ -25,7 +31,7 @@ const Movies = () => {
   }, []);
 
   return (
-    <div className="container-fluid" style={{ marginLeft: '-15px' }}>
+    <MovieContext.Provider value={handleRemove} className="container-fluid" style={{ marginLeft: '-15px' }}>
       <div className="d-flex flex-row">
         <div className="col-sm-12">
           <MovieList movies={movies} />
@@ -35,7 +41,7 @@ const Movies = () => {
       <div>
         <CreateMovie addMovie={addMovie} />
       </div>
-    </div>
+    </MovieContext.Provider>
   );
 }
 
