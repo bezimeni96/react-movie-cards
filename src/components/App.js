@@ -1,4 +1,5 @@
 import React from 'react';
+import CreateMovie from './CreateMovie';
 
 import Header from './Header';
 import Movies from './Movie/Movies';
