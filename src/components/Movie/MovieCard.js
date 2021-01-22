@@ -21,7 +21,7 @@ const MovieCard = ({ movie }) => {
       <div className="card-footer">
         <div className="clearfix">
           <div className="float-left mt-1">
-            <StarRating rating={movie.rating} handleRating={(value) => handleRating(movie.id, value)} />
+            <StarRating rating={movie.rating /movie.numOfRate} handleRating={(value) => handleRating(movie.id, value)} />
           </div>
           <div className="card-footer-badge float-right badge badge-primary badge-pill" onMouseOver={() => alert(`This movie was rated by ${movie.numOfRate === 1 ? movie.numOfRate + ' person.'  : movie.numOfRate + ' people.'} `)} >{(movie.rating/movie.numOfRate).toFixed(2)}</div>
         </div>

@@ -7,7 +7,6 @@ const CreateMovie = ({ addMovie }) => {
     description: '',
     year: '',
     imageUrl: '',
-    rating: ''
   });
 
   const [errors, setErrors] = useState([]);
@@ -35,7 +34,6 @@ const CreateMovie = ({ addMovie }) => {
       addMovie({
         ...movie,
         year: parseInt(movie.year),
-        rating: parseFloat(movie.rating)
       });
       setErrors([]);
       setMovie({
@@ -43,8 +41,7 @@ const CreateMovie = ({ addMovie }) => {
         subtitle: '',
         description: '',
         year: '',
-        imageUrl: '',
-        rating: ''
+        imageUrl: ''
       })
     }
   }
@@ -77,11 +74,6 @@ const CreateMovie = ({ addMovie }) => {
         <label htmlFor="imageUrl">Image url: </label>
         <input type="text" name="imageUrl" id="imageUrl" value={movie.imageUrl} onChange={handleChange} />
         {errors.includes('imageUrl') && <p>This field is required!</p>}
-        <br/>
-
-        <label htmlFor="rating">rating: </label>
-        <input type="number" min="1" max="5" step="0.1" name="rating" id="rating" value={movie.rating} onChange={handleChange} />
-        {errors.includes('rating') && <p>This field is required!</p>}
         <br/>
 
         <button type="submit">Add movie</button>

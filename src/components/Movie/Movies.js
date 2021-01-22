@@ -15,7 +15,8 @@ const Movies = () => {
       ...movie,
       id: new Date().getTime().toString(),
       removeAble: true,
-      numOfRate: 1
+      numOfRate: 0,
+      rating: 0
     })
     setMovies(newMovies);
   }
@@ -27,7 +28,6 @@ const Movies = () => {
   }
 
   const handleRating = (id, rate) => {
-    console.log(rate)
     setMovies((movies) => {
       return movies.map((movie) => {
         if (movie.id === id) {
@@ -50,7 +50,7 @@ const Movies = () => {
     setMovies(() => newMovies.map((movie) => {
       return {
         ...movie,
-        numOfRate: 1
+        numOfRate: 1,
       }
     }));
   }, []);
