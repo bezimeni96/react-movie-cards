@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import MovieList from './MovieList';
 import MovieService from '../../services/MovieService';
@@ -8,14 +8,14 @@ export const MovieContext = React.createContext();
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
-  // const action = useContext(MovieContext);
   
   const addMovie = (movie) => {
     const newMovies = [...movies];
     newMovies.push({
       ...movie,
       id: new Date().getTime().toString(),
-      removeAble: true
+      removeAble: true,
+      numOfRate: 1
     })
     setMovies(newMovies);
   }
@@ -26,12 +26,37 @@ const Movies = () => {
     });
   }
 
+  const handleRating = (id, rate) => {
+    console.log(rate)
+    setMovies((movies) => {
+      return movies.map((movie) => {
+        if (movie.id === id) {
+          const numOfRate = movie.numOfRate + 1 ;
+          const rating = movie.rating + rate;
+          return {
+            ...movie,
+            numOfRate,
+            rating
+          };
+        } else {
+          return movie;
+        }
+      });
+    });
+  }
+
   useEffect(() => {
-    setMovies(MovieService.getMovies());
+    const newMovies = MovieService.getMovies();
+    setMovies(() => newMovies.map((movie) => {
+      return {
+        ...movie,
+        numOfRate: 1
+      }
+    }));
   }, []);
 
   return (
-    <MovieContext.Provider value={handleRemove} className="container-fluid" style={{ marginLeft: '-15px' }}>
+    <MovieContext.Provider value={{ handleRemove, handleRating }} className="container-fluid" style={{ marginLeft: '-15px' }}>
       <div className="d-flex flex-row">
         <div className="col-sm-12">
           <MovieList movies={movies} />
